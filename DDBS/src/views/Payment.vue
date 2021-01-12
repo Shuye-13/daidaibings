@@ -81,6 +81,7 @@
   font-size: 20px;
   color: #e00000;
   margin-top: 20px;
+  text-align:center;
 }
 
 .pay_method{

@@ -110,10 +110,11 @@
       </mt-tab-container-item>
     </mt-tab-container >
     
-    
-    <mt-button type="danger" size="normal" @click="handle">
-      登录
-    </mt-button>
+    <div style="margin:0 auto; width:100%">
+      <mt-button type="danger" size="normal" @click="handle">
+        登录
+      </mt-button>
+    </div>
     <div class="bottom">
       <span>使用其他账号登陆</span>
     </div>
@@ -185,6 +186,7 @@
     padding: 0px 84px;
     background-color: #c0191f;
     border-radius: 10px;
+    margin:0 auto;
   }
 
   .mint-tab-container-item>>>input{

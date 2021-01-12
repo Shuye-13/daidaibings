@@ -1,135 +1,383 @@
 <template>
-  <div>
-    <!-- 顶部banner图片开始 -->
-    <div class="swiper">
-      <mt-swipe
-        :style="{ height: swipeHeight }"
-        :auto="5000"
-        :speed="200"
-        :show-indicators="true"
-      >
-        <mt-swipe-item class="swiper-item">
-          <img
-            src="https://images.bthhotels.com/image/254a9860-f6d3-408d-92b9-3e37ceb8270a.jpeg"
-            alt=""
-          />
-        </mt-swipe-item>
-        <mt-swipe-item class="swiper-item">
-          <img
-            src="https://images.bthhotels.com/image/254a9860-f6d3-408d-92b9-3e37ceb8270a.jpeg"
-            alt=""
-          />
-        </mt-swipe-item>
-      </mt-swipe>
-    </div>
-    <!-- 顶部banner图片结束 -->
-    <!-- 酒店预订内容开始 -->
-    <div class="home_box">
-      <ul class="ul1" style="margin: 0 auto; width: 335px">
-        <li class="navon" :class="fontBig1" @click="jd_click">
-          酒店预订
-          <span v-show="clicked == 1"></span>
-        </li>
-        <li class="navon" @click="sz_click" :class="fontBig2">
-          时租房
-          <span v-show="clicked == 2"></span>
-        </li>
-      </ul>
-      <!-- 酒店预订/时租房下边第一部分开始 -->
-      <div class="main">
-        <div style="margin: 0 auto; width: 335px">
-          <div style="border-radius: 12px; overflow: hidden">
-            <!-- 左边输入框 -->
-            <div class="main_left">
-              <span class="main_jdspan">酒店名/地名</span>
-            </div>
-            <!-- 右边输入框 -->
-            <div class="main_right">
-              <span class="main_szspan"
-                >保定
-                <span class="fuhao">></span>
-              </span>
-            </div>
-          </div>
-          <!-- 酒店预订/时租房下边第一部分结束 -->
-          <!-- 酒店预订/时租房下边第二部分开始 -->
-          <div class="main2" v-if="clicked==1">
-            <!-- 左 -->
-            <div>
-              <div class="ruzhu">入住</div>
-              <div class="ruzhuTime">
-                <span class="time">01月10日</span>
-                <span class="china_time">今天</span>
-              </div>
-            </div>
-            <!-- 中 -->
-            <div class="wan">
-              <span>1</span>
-              晚
-            </div>
-            <!-- 右 -->
-            <div>
-              <div class="lidian">离店</div>
-              <div class="lidianTime">
-                <span class="time">01月11日</span>
-                <span class="china_time">周一</span>
-              </div>
-            </div>
-          </div>
-          <div class="main3" style="text-align:left" v-if="clicked==2">
-            <!-- 左 -->
-            <div>
-              <div class="ruzhu2">入住</div>
-              <div class="ruzhuTime">
-                <span class="time">01月10日</span>
-               <b class="only"> 仅限当日8:00~20:00可订</b>
-              </div>
-            </div>
-            <!-- 中 -->
-            </div>
-            <!-- 酒店预订/时租房下边第二部分结束 -->
-            <!-- 立即预定按钮开始 -->
-            <mt-button type='default' size='large' class="main_button">立即预定</mt-button>
-            <!-- 立即预定按钮结束 -->
-            <!-- 选项卡开始 -->
-            <mt-navbar class="home_cx" >
-              <mt-tab-item class="dibu"> 
-                <img src="https://images.bthhotels.com/webSite/home_wap/xingcheng_icon.png">
-                <span class="hanzi">我的行程</span></mt-tab-item>
-               <mt-tab-item> 
-                 <img src="https://images.bthhotels.com/webSite/home_wap/dingdan_icon.png" alt="">
-                 <span class="hanzi">我的订单</span></mt-tab-item>
-            </mt-navbar>
-            <!-- 选项卡结束 -->
-          </div>
-          <!-- 这是半通明横线 -->
-          <div style="border-bottom:5px solid #d7d7d7;opacity:.5">
-
-          </div>
-        </div> 
+  <!-- <div> -->
+  <div style="width: 414px; background-color: #d3d3d3">
+      <!-- 顶部banner图片开始 -->
+      <div class="swiper">
+        <mt-swipe
+          :style="{ height: swipeHeight }"
+          :auto="5000"
+          :speed="200"
+          :show-indicators="false"
+        >
+          <mt-swipe-item class="swiper-item">
+            <img
+              src="https://images.bthhotels.com/image/254a9860-f6d3-408d-92b9-3e37ceb8270a.jpeg"
+              alt=""
+            />
+          </mt-swipe-item>
+          <mt-swipe-item class="swiper-item">
+            <img
+              src="https://images.bthhotels.com/image/254a9860-f6d3-408d-92b9-3e37ceb8270a.jpeg"
+              alt=""
+            />
+          </mt-swipe-item>
+        </mt-swipe>
       </div>
+      <!-- 顶部banner图片结束 -->
+      <!-- 酒店预订内容开始 -->
+      <div class="home_box" style="background-color: #fff">
+        <ul class="ul1" style="margin: 0 auto; width: 335px">
+          <li class="navon" :class="fontBig1" @click="jd_click">
+            酒店预订
+            <span v-show="clicked == 1"></span>
+          </li>
+          <li class="navon" @click="sz_click" :class="fontBig2">
+            时租房
+            <span v-show="clicked == 2"></span>
+          </li>
+        </ul>
+        <!-- 酒店预订/时租房下边第一部分开始 -->
+        <div class="main">
+          <div style="margin: 0 auto; width: 335px">
+            <div
+              style="border-radius: 12px; height: 45px; padding-bottom: 12px"
+            >
+              <!-- 左边输入框 -->
+              <div class="main_left">
+                <span class="main_jdspan">酒店名/地名</span>
+              </div>
+              <!-- 右边输入框 -->
+              <div class="main_right">
+                <span class="main_szspan"
+                  >保定
+                  <span class="fuhao">></span>
+                </span>
+              </div>
+            </div>
+            <!-- 酒店预订/时租房下边第一部分结束 -->
+            <!-- 酒店预订/时租房下边第二部分开始 -->
+            <div class="main2" v-if="show == 3">
+              <!-- 左 -->
+              <div>
+                <div class="ruzhu">入住</div>
+                <div class="ruzhuTime">
+                  <span class="time">01月10日</span>
+                  <span class="china_time">今天</span>
+                </div>
+              </div>
+              <!-- 中 -->
+              <div class="wan">
+                <span>1</span>
+                晚
+              </div>
+              <!-- 右 -->
+              <div>
+                <div class="lidian">离店</div>
+                <div class="lidianTime">
+                  <span class="time">01月11日</span>
+                  <span class="china_time">周一</span>
+                </div>
+              </div>
+            </div>
+            <!-- 第三小份 -->
+            <div class="main3" style="text-align: left" v-if="show == 4">
+              <!-- 左 -->
+              <div>
+                <div class="ruzhu2">入住</div>
+                <div class="ruzhuTime">
+                  <span class="time">01月10日</span>
+                  <b class="only"> 仅限当日8:00~20:00可订</b>
+                </div>
+              </div>
+              <!-- 中 -->
+            </div>
+            <!-- 第三份结束 -->
+          </div>
+        </div>
+      </div>
+
+      <!-- 酒店预订/时租房下边第二部分结束 -->
+      <!-- 立即预定按钮开始 -->
+     <div style="background-color:#fff">
+        <mt-button type="default" size="large" class="main_button"style='width:335px;margin:0 auto'
+       >立即预定</mt-button
+     </div>
+      
+      <!-- 立即预定按钮结束 -->
+      <!-- 选项卡开始 -->
+      <mt-navbar class="home_cx">
+        <mt-tab-item class="dibu">
+          <img
+            src="https://images.bthhotels.com/webSite/home_wap/xingcheng_icon.png"
+          />
+          <span class="hanzi">我的行程</span></mt-tab-item
+        >
+        <mt-tab-item>
+          <img
+            src="https://images.bthhotels.com/webSite/home_wap/dingdan_icon.png"
+            alt=""
+          />
+          <span class="hanzi">我的订单</span></mt-tab-item
+        >
+      </mt-navbar>
+      <!-- 选项卡结束 -->
+
+      <!-- 酒店预订内容结束 -->
+      <!-- 多功能导航开始 -->
+      <div class="last">
+        <div class="menu">
+          <!-- 带跳转页面 -->
+          <!-- 第一次 -->
+         <a href="#">
+        <ul class="menu_ul">
+          <li>
+            <img
+              src="https://images.bthhotels.com/webSite/home_wap/plane.png"
+              alt=""
+              class="big_img"
+            />
+          </li>
+          <li>机票</li>
+          <img
+            src="https://images.bthhotels.com/webSite/home_wap/jifen_icon.png"
+            alt=""
+            class="small_img"
+          />
+        </ul>
+      </a> 
+          <!-- 第二次 -->
+         <a href="#">
+        <ul class="menu_ul">
+          <li>
+            <img
+              src="https://images.bthhotels.com/webSite/home_wap/train.png"
+              alt=""
+              class="big_img"
+            />
+          </li>
+          <li>火车票</li>
+          <img
+            src="https://images.bthhotels.com/webSite/home_wap/jifen_icon.png"
+            alt=""
+            class="small_img"
+          />
+        </ul>
+      </a>
+          <!-- 第三次 -->
+           <a href="#">
+        <ul class="menu_ul">
+          <li>
+            <img
+              src="https://images.bthhotels.com/webSite/home_wap/new_pick.png"
+              alt=""
+              class="big_img"
+            />
+          </li>
+          <li>打车</li>
+          <img
+            src="https://images.bthhotels.com/webSite/home_wap/new_pick_icon.png"
+            alt=""
+            class="small_img"
+          />
+        </ul>
+      </a> 
+          <!-- 第四次 -->
+         <a href="#">
+        <ul class="menu_ul">
+          <li>
+            <img
+              src="https://images.bthhotels.com/webSite/home_wap/ticket.png"
+              alt=""
+              class="big_img"
+            />
+          </li>
+          <li>景点门票</li>
+          <img
+            src="https://images.bthhotels.com/webSite/home_wap/jifen_icon.png"
+            alt=""
+            class="small_img"
+          />
+        </ul>
+      </a>
+          <!-- 第五次 -->
+          <a href="#">
+        <ul class="menu_ul">
+          <li>
+            <img
+              src="https://images.bthhotels.com/webSite/home_wap/service/more_01.png"
+              alt=""
+              class="big_img"
+            />
+          </li>
+          <li>企业客户</li>
+          <!-- <img
+            src="https://images.bthhotels.com/webSite/home_wap/jifen_icon.png"
+            alt=""
+            class="small_img"
+          /> -->
+        </ul>
+      </a> 
+          <!-- 第六次 -->
+          <a href="#">
+        <ul class="menu_ul">
+          <li>
+            <img
+              src="https://images.bthhotels.com/webSite/home_wap/bus.png"
+              alt=""
+              class="big_img"
+            />
+          </li>
+          <li>如家巴士</li>
+          <!-- <img
+            src="https://images.bthhotels.com/webSite/home_wap/jifen_icon.png"
+            alt=""
+            class="small_img"
+          /> -->
+        </ul>
+      </a>  
+          <!-- 第七次 -->
+         <a href="#">
+        <ul class="menu_ul">
+          <li>
+            <img
+              src="https://images.bthhotels.com/webSite/home_wap/service/service_05.png"
+              alt=""
+              class="big_img"
+            />
+          </li>
+          <li>首汽租车</li>
+          <!-- <img
+            src="https://images.bthhotels.com/webSite/home_wap/jifen_icon.png"
+            alt=""
+            class="small_img"
+          /> -->
+        </ul>
+      </a> 
+          <!-- 第八次 -->
+           <a href="#">
+       <ul class="menu_ul">
+          <li>
+            <img
+              src="https://images.bthhotels.com/webSite/home_wap/more.png"
+              alt=""
+              class="big_img"
+            />
+          </li>
+          <li>更多</li>
+          <!-- <img
+            src="https://images.bthhotels.com/webSite/home_wap/jifen_icon.png"
+            alt=""
+            class="small_img"
+          /> -->
+        </ul>
+      </a> 
+        </div>
+      </div>
+
+      <!-- 多功能导航结束 -->
+      <!-- 酒店信息开始 -->
+      <div class="city_title">
+      <p>热门城市</p>
     </div>
-    <!-- 酒店预订内容结束 -->
+    <div class="city_list">
+      <a href="javascript:;" class="city_a">
+        <div>
+          <img class="city_img" src="../assets/shanghai.jpg">
+        </div>
+        <div>
+          <p class="city_name">上海</p>
+        </div>
+        <div class="city_mount">
+          <span style="color: red;">366</span>家酒店
+        </div>
+      </a>
+    </div>
+    <div class="city_list">
+      <a href="javascript:;" class="city_a">
+        <div>
+          <img class="city_img" src="../assets/beijing.jpg">
+        </div>
+        <div>
+          <p class="city_name">北京</p>
+        </div>
+        <div class="city_mount">
+          <span style="color: red;">269</span>家酒店
+        </div>
+      </a>
+    </div>
+    <div class="city_list">
+      <a href="javascript:;" class="city_a">
+        <div>
+          <img class="city_img" src="../assets/xian.jpg">
+        </div>
+        <div>
+          <p class="city_name">西安</p>
+        </div>
+        <div class="city_mount">
+          <span style="color: red;">135</span>家酒店
+        </div>
+      </a>
+    </div>
+      <!-- 酒店信息结束 -->
+      <!-- 底部开始 -->
+      <div class="tj">
+      <span>推荐品牌</span>
+      <a href="#">全部></a>
+      <img
+        src="https://images.bthhotels.com/webSite/home_wap/tj_banner.png"
+        slot="icon"
+      />
+
+      <mt-tabbar  class="tabbar" fixed>
+        <mt-tab-item id="个人中心" class="item">
+          <img
+            slot="icon"
+            src="https://images.bthhotels.com/webSite/home_wap/person_icon.png"
+            class="t1"
+          />
+          个人中心
+        </mt-tab-item>
+        <mt-tab-item id="APP下载" class="item">
+          <img
+            slot="icon"
+            src="https://images.bthhotels.com/webSite/home_wap/app_icon.png"
+            class="t1"
+          />
+          APP下载
+        </mt-tab-item>
+        <mt-tab-item id="客服" class="item">
+          <img
+            slot="icon"
+            src="https://images.bthhotels.com/webSite/home_wap/kefu_icon.png"
+            class="t1"
+          />
+          客服
+        </mt-tab-item>
+      </mt-tabbar>
+      <p>版权所有 © 2018 Homeinns Co.,Ltd All Rights Reserved.</p>
+    </div>
+      <!-- 底部结束 -->
+    </div>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      // 定义轮播图的个数
-      // siwperItem: 2,
       // 定义轮播图初始高度
       swipeHeight: "135px",
       fontBig1: {},
       fontBig2: {},
       // 绑定点击时租跟酒店点击变量
       clicked: "",
+      show: "3",
     };
   },
   methods: {
     // 点击酒店预订调用
     jd_click() {
       this.clicked = "1";
+      this.show = "3";
       if (this.clicked) {
         this.fontBig = { fontbig: true, fontsmall: false };
       }
@@ -137,6 +385,7 @@ export default {
     // 点击时租调用
     sz_click() {
       this.clicked = "2";
+      this.show = "4";
       // if (this.clicked) {
       //   this.fontBig = { fontbig: true, fontsmall: false };
       // }
@@ -161,7 +410,7 @@ export default {
     // 获取屏幕的高度
     let screenWidth = window.screen.width;
     // 图片的宽高
-    let picwidth = 750;
+    let picwidth = 414;
     let picheight = 260;
     // 获取轮播图所需要的高度
     this.swipeHeight = (picheight * screenWidth) / picwidth + "px";
@@ -169,6 +418,114 @@ export default {
 };
 </script>
 <style scoped>
+/* 酒店开始 */
+.city_title {
+  text-align: left;
+  margin-top: 15px;
+  margin-left: 20px;
+  font-weight: 600;
+}
+.city_list {
+  margin-top: 15px;
+}
+.city_a {
+  color: #000;
+  background-color: #f8f8f8;
+  /* border: 1px solid #ccc; */
+  display: flex;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 10px;
+}
+.city_img {
+  /* widows: 90px; */
+  height: 90px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.city_name {
+  margin-left: 20px;
+  margin-top: 35px;
+  font-size: 18px;
+}
+.city_mount {
+  margin-left: 45px;
+  margin-top: 36px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.city_mount > span {
+  font-weight: 100;
+}
+.last {
+  width: 335px;
+  padding: 0 40px;
+  background-color: #fff;
+}
+.tj {
+  padding: 15px 15px 12px 20px;
+  background-color: #fff;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+.tj span {
+  float: left;
+  font-size: 15px;
+  line-height: 15px;
+  font-weight: bold;
+  color: #313336;
+}
+.tj a {
+  float: right;
+  font-size: 12px;
+  color: #9b9b99;
+}
+.tj img {
+  width: 21.7rem;
+  height: 8.14rem;
+  margin: 20px 0;
+}
+.tj .tabbar {
+  background-color: #d6bfa6;
+}
+.tj img.t1 {
+  width: 24px;
+  height: 24px;
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+.tj p {
+  font-size: 12px;
+  color: #c19d74;
+  text-align: center;
+  /* background-color: #f5f5f5; */
+}
+
+/* 导入底部结束 */
+.menu .menu_ul {
+  position: relative;
+  width: 25%;
+  float: left;
+  color: #313336;
+  margin-bottom: 25px;
+}
+.menu .small_img {
+  width: 38px;
+  height: 18px;
+  position: absolute;
+  top: 0px;
+  left: 50px;
+}
+.menu .big_img {
+  width: 38px;
+  height: 38px;
+}
+.menu {
+  width: 100%;
+  height: 160px;
+  text-align: center;
+}
 .mint-navbar .mint-tab-item.is-selected {
   border-bottom: 3px solid transparent;
 }
@@ -183,7 +540,7 @@ export default {
   vertical-align: top;
 }
 .main_button {
-  margin-top: 10px;
+  padding-top: 10px;
   background: linear-gradient(
     40deg,
     rgba(241, 44, 63, 1) 0%,
@@ -313,7 +670,7 @@ export default {
 }
 .home_box .main {
   width: 100%;
-  height: 166px;
+  height: 125px;
   margin-top: 20px;
 }
 .home_box .main .main_left {
@@ -346,6 +703,4 @@ export default {
   position: absolute;
   right: 20px;
 }
-</style>>
-
 </style>

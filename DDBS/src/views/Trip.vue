@@ -44,6 +44,7 @@ font-size: 16px;
 }
 .p_top{
 padding-top: 70px;
+text-align:center;
 }
 .p_top p{
     opacity: 0.30;
@@ -68,8 +69,8 @@ padding-top: 70px;
 }
 .trip_tj p.trip_tj_top span {
     position: absolute;
-    right: 0.24rem;
-    top: 0.36rem;
+    right: 0.64rem;
+    top: 0.66rem;
     display: inline-block;
     padding-top: 0rem;
     color: #97989A;
@@ -93,8 +94,8 @@ li{
 }
 .trip_tj ul li .trip_tj_jifen {
     position: absolute;
-    right: 17.2rem;
-    top: 24.91rem;
+    right: 16.2rem;
+    top: 20.91rem;
     width: 37.33px;
     height: 16px;
     z-index: 99;

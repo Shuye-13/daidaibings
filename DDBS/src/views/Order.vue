@@ -75,12 +75,13 @@
 }
 .container .mianban{
     padding-top: 155px;
+    text-align:center;
 }
-.container .mianban img{
+.container .mianban>>>img{
     width: 76.8px;
     height: 76.8px;
 }
-.container .mianban p{
+.container .mianban>>>p{
     opacity: 0.5;
 }
 .order_type_list{
@@ -96,7 +97,7 @@
     background: #fff;
     padding: 7.6px 0 7.4px 16px;
 }
-.order_type_list p {
+.order_type_list>>>p {
     text-align: center;
     padding-bottom: .34rem;
     color: rgba(49,51,54,.5);

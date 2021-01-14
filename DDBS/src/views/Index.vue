@@ -1,8 +1,8 @@
 <template>
   <!-- <div> -->
-  <div style="width: 414px; background-color: #d3d3d3">
+  <div style="width:376px; background-color: #d3d3d3 ;">
       <!-- 顶部banner图片开始 -->
-      <div class="swiper">
+      <div class="swiper" style="overflow: hidden;">
         <mt-swipe
           :style="{ height: swipeHeight }"
           :auto="5000"
@@ -43,14 +43,14 @@
               style="border-radius: 12px; height: 45px; padding-bottom: 12px"
             >
               <!-- 左边输入框 -->
-              <div class="main_left">
+              <div class="main_left" @click="tohomeinns">
                 <span class="main_jdspan">酒店名/地名</span>
               </div>
               <!-- 右边输入框 -->
               <div class="main_right">
                 <span class="main_szspan"
-                  >保定
-                  <span class="fuhao">></span>
+                  >{{city}}
+                  <router-link to="/index_address"><span class="fuhao">></span></router-link>
                 </span>
               </div>
             </div>
@@ -99,8 +99,7 @@
       <!-- 酒店预订/时租房下边第二部分结束 -->
       <!-- 立即预定按钮开始 -->
      <div style="background-color:#fff">
-        <mt-button type="default" size="large" class="main_button"style='width:335px;margin:0 auto'
-       >立即预定</mt-button
+        <mt-button type="default" size="large" class="main_button"style='width:335px;margin:0 auto' @click="toroomlist">立即预定</mt-button
      </div>
       
       <!-- 立即预定按钮结束 -->
@@ -109,16 +108,16 @@
         <mt-tab-item class="dibu">
           <img
             src="https://images.bthhotels.com/webSite/home_wap/xingcheng_icon.png"
-          />
-          <span class="hanzi">我的行程</span></mt-tab-item
-        >
+          /> 
+          <router-link to="/trip"><span class="hanzi">我的行程</span></router-link>
+        </mt-tab-item>
         <mt-tab-item>
           <img
             src="https://images.bthhotels.com/webSite/home_wap/dingdan_icon.png"
             alt=""
           />
-          <span class="hanzi">我的订单</span></mt-tab-item
-        >
+          <router-link to="/order"><span class="hanzi">我的订单</span></router-link>
+        </mt-tab-item>
       </mt-navbar>
       <!-- 选项卡结束 -->
 
@@ -128,23 +127,23 @@
         <div class="menu">
           <!-- 带跳转页面 -->
           <!-- 第一次 -->
-         <a href="#">
-        <ul class="menu_ul">
-          <li>
+        <router-link to="/home">
+          <ul class="menu_ul">
+            <li>
+              <img
+                src="https://images.bthhotels.com/webSite/home_wap/plane.png"
+                alt=""
+                class="big_img"
+              />
+            </li>
+            <li>机票</li>
             <img
-              src="https://images.bthhotels.com/webSite/home_wap/plane.png"
+              src="https://images.bthhotels.com/webSite/home_wap/jifen_icon.png"
               alt=""
-              class="big_img"
+              class="small_img"
             />
-          </li>
-          <li>机票</li>
-          <img
-            src="https://images.bthhotels.com/webSite/home_wap/jifen_icon.png"
-            alt=""
-            class="small_img"
-          />
-        </ul>
-      </a> 
+          </ul>
+        </router-link> 
           <!-- 第二次 -->
          <a href="#">
         <ul class="menu_ul">
@@ -358,8 +357,12 @@
     </div>
       <!-- 底部结束 -->
     </div>
+    <!-- 地图开始 -->
+    <div id="map_container" style="display:none"></div>
+    <!-- 地图结束 -->
   </div>
 </template>
+
 <script>
 export default {
   data() {
@@ -371,6 +374,7 @@ export default {
       // 绑定点击时租跟酒店点击变量
       clicked: "",
       show: "3",
+      city: "保定",
     };
   },
   methods: {
@@ -390,6 +394,12 @@ export default {
       //   this.fontBig = { fontbig: true, fontsmall: false };
       // }
     },
+    tohomeinns(){
+      this.$router.push("/homeinns");
+    },
+    toroomlist(){
+      this.$router.push("/roomlist");
+    }
   },
   watch: {
     // 监视酒店跟时租变量的变化
@@ -414,11 +424,70 @@ export default {
     let picheight = 260;
     // 获取轮播图所需要的高度
     this.swipeHeight = (picheight * screenWidth) / picwidth + "px";
+    // 地图开始
+    // 获取地图对象
+    let gl = window.navigator.geolocation;
+    // 获取经纬度
+    gl.getCurrentPosition(
+      (res) => {
+        // 绑定经纬度（经纬度保存在coords对象中）
+        let coords = res.coords.longitude + "," + res.coords.latitude;
+        console.log(coords);
+        let divElement = document.getElementById("map_container");
+        let map = new BMap.Map(divElement);
+        //                             经度                 纬度
+        let a = res.coords.longitude;
+        let b = res.coords.latitude;
+        // 开始监视地理位置的变化
+        gl.watchPosition(
+          (res) => {
+            //如果成功了就重新改变地理位置
+            a = res.coords.longitude;
+            b = res.coords.latitude;
+            // 设置地图中心点
+            let point = new BMap.Point(a, b);
+            // 绘制中心点地图
+            map.centerAndZoom(point, 15);
+            // 创建地图解析对象
+            let Geocoder = new BMap.Geocoder().getLocation(point, (res) => {
+              console.log(res.addressComponents.city);
+              this.city = res.addressComponents.city;
+            });
+          },
+          (res) => {
+            console.log(res);
+          },
+          { timeout: 5000, enableHighAccuracy: true }
+        );
+        // 结束
+        // let point = new BMap.Point(a, b);
+        // 设置地图中心点，并设置可缩放15倍
+
+        // 允许缩放
+        // map.enableScrollWheelZoom();
+      },
+      (res) => {
+        console.log(res);
+      }
+    );
+    // 地图结束
   },
 };
 </script>
 <style scoped>
+  .mint-swipe-item .swiper-item{
+    display: none !important;
+  }
+  *{
+    box-sizing: border-box;
+  }
 /* 酒店开始 */
+#map_container {
+  width: 100%;
+  /* width: 800px; */
+  height: 480px;
+  border: 2px solid #ccc;
+}
 .city_title {
   text-align: left;
   margin-top: 15px;
@@ -458,8 +527,8 @@ export default {
   font-weight: 100;
 }
 .last {
-  width: 335px;
-  padding: 0 40px;
+  width: 360px;
+  /* padding: 0 40px; */
   background-color: #fff;
 }
 .tj {
@@ -540,7 +609,7 @@ export default {
   vertical-align: top;
 }
 .main_button {
-  padding-top: 10px;
+  /* padding-top: 10px; */
   background: linear-gradient(
     40deg,
     rgba(241, 44, 63, 1) 0%,
@@ -675,12 +744,12 @@ export default {
 }
 .home_box .main .main_left {
   float: left;
-  width: 234px;
+  width: 220px;
   border-right: 1px solid #d3d3d3;
 }
 .home_box .main .main_right {
   float: right;
-  width: 100px;
+  width: 113px;
   position: relative;
 }
 .home_box .main .main_left .main_jdspan {
@@ -693,7 +762,7 @@ export default {
 }
 .home_box .main .main_right .main_szspan {
   background-color: #f7f7f7;
-  color: #d3d3d3;
+  color: #333;
   height: 45px;
   line-height: 45px;
   padding-left: 15px;
@@ -701,6 +770,6 @@ export default {
 }
 .home_box .main .main_right .main_szspan .fuhao {
   position: absolute;
-  right: 20px;
+  right: 5px;
 }
 </style>

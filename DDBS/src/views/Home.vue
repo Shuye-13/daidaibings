@@ -22,8 +22,8 @@
         </div>
         <div class="box-filter">
           <div class="citySelect cityLayer">
-            <div class="cityBox cityStart">北京</div>
-            <div class="cityTabBtn">
+            <div class="cityBox cityStart">{{start}}</div>
+            <div class="cityTabBtn" >
               <img src="../assets/img/zhuanhuan.png" alt="">
             </div>
             <div class="cityBox cityArrived">目的地</div>
@@ -38,9 +38,11 @@
               <span>返程日期 (选填)</span>
             </div>          
           </div>
-          <div class="queryBtn">
-              查&nbsp;&nbsp;&nbsp;询
-          </div>
+          <router-link to="/select">
+            <div class="queryBtn">
+                查&nbsp;&nbsp;&nbsp;询
+            </div>
+        </router-link>
         </div>
 
       </div>
@@ -115,7 +117,8 @@
 export default {
   data() {
     return {
-      swipeHeight : '164px'
+      swipeHeight : '164px',
+      start:"北京a",
     }
   },
   mounted(){
@@ -127,8 +130,14 @@ export default {
     //轮播图的高度=图片高*屏幕宽/图片宽
     this.swipeHeight = (picheight * screenWidth / picwidth) + 'px'
     // console.log(picheight * screenWidth / picwidth)
+  },
+  mothods:{
+    change(){
+
+    }
   }
 }
+  // var cityStart=document.getElementsByClassName("cityBox cityStart");
 </script>
 <style scoped>
 #app{
